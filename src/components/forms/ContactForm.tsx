@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Send, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { services } from "@/data/services";
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -12,13 +13,9 @@ export function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
-    make: "",
-    model: "",
-    year: "",
+    vehicleDetails: "",
     service: "",
-    zip: "",
-    date: "",
+    address: "",
     details: "",
   });
 
@@ -38,8 +35,8 @@ export function ContactForm() {
     setIsSuccess(true);
     
     setFormData({
-      name: "", phone: "", email: "", make: "", model: "",
-      year: "", service: "", zip: "", date: "", details: "",
+      name: "", phone: "", vehicleDetails: "",
+      service: "", address: "", details: "",
     });
   };
 
@@ -83,23 +80,8 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">Email Address</label>
-        <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="john@example.com" />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="space-y-2">
-          <label htmlFor="year" className="text-sm font-medium">Vehicle Year *</label>
-          <input required id="year" name="year" type="text" value={formData.year} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="2023" />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="make" className="text-sm font-medium">Vehicle Make *</label>
-          <input required id="make" name="make" type="text" value={formData.make} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Porsche" />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="model" className="text-sm font-medium">Vehicle Model *</label>
-          <input required id="model" name="model" type="text" value={formData.model} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="911" />
-        </div>
+        <label htmlFor="vehicleDetails" className="text-sm font-medium">Vehicle Details (Year, Make, Model) *</label>
+        <input required id="vehicleDetails" name="vehicleDetails" type="text" value={formData.vehicleDetails} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. 2022 Porsche 911" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -107,22 +89,16 @@ export function ContactForm() {
           <label htmlFor="service" className="text-sm font-medium">Service Needed *</label>
           <select required id="service" name="service" value={formData.service} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-foreground appearance-none">
             <option value="" disabled>Select a service...</option>
-            <option value="full-detail">Full Detail</option>
-            <option value="exterior">Exterior Detailing</option>
-            <option value="interior">Interior Detailing</option>
-            <option value="ceramic">Ceramic Coating</option>
+            {services.map(s => (
+              <option key={s.id} value={s.id}>{s.name}</option>
+            ))}
             <option value="other">Other / Custom</option>
           </select>
         </div>
         <div className="space-y-2">
-          <label htmlFor="zip" className="text-sm font-medium">Service Location ZIP Code *</label>
-          <input required id="zip" name="zip" type="text" value={formData.zip} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="12345" />
+          <label htmlFor="address" className="text-sm font-medium">Full Service Address *</label>
+          <input required id="address" name="address" type="text" value={formData.address} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="e.g. 123 Main St, Indianapolis, IN 46201" />
         </div>
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="date" className="text-sm font-medium">Preferred Date (Optional)</label>
-        <input id="date" name="date" type="date" value={formData.date} onChange={handleChange} className="w-full h-12 px-4 rounded-lg bg-card border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-foreground" style={{colorScheme: 'dark'}} />
       </div>
 
       <div className="space-y-2">

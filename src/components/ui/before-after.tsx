@@ -43,7 +43,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage }: BeforeAfterSlider
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden cursor-ew-resize select-none shadow-2xl border border-white/10"
+      className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden cursor-ew-resize select-none shadow-2xl border border-border"
       onMouseDown={(e) => {
         setIsDragging(true);
         handleMove(e.clientX);
@@ -62,7 +62,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage }: BeforeAfterSlider
         fill
         className="object-cover pointer-events-none"
       />
-      <div className="absolute top-6 left-6 px-4 py-1 bg-black/60 backdrop-blur-md rounded-full border border-white/20 text-white text-sm font-semibold tracking-wider">
+      <div className="absolute top-6 left-6 px-4 py-1 bg-black/60 backdrop-blur-md rounded-full border border-border text-white text-sm font-semibold tracking-wider">
         BEFORE
       </div>
 
@@ -77,7 +77,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage }: BeforeAfterSlider
           fill
           className="object-cover"
         />
-        <div className="absolute top-6 right-6 px-4 py-1 bg-black/60 backdrop-blur-md rounded-full border border-white/20 text-white text-sm font-semibold tracking-wider">
+        <div className="absolute top-6 right-6 px-4 py-1 bg-black/60 backdrop-blur-md rounded-full border border-border text-white text-sm font-semibold tracking-wider">
           AFTER
         </div>
       </div>

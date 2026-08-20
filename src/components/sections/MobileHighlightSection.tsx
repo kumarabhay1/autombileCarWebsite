@@ -25,10 +25,10 @@ export function MobileHighlightSection() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
             
             <div className="absolute bottom-8 left-8 right-8">
-              <div className="glass p-6 rounded-2xl border border-white/10">
+              <div className="glass p-6 rounded-2xl border border-border">
                 <p className="font-semibold text-lg mb-2">Self-Sufficient Setup</p>
                 <p className="text-muted-foreground text-sm">We carry our own spot-free water and power supply. We can detail your vehicle anywhere.</p>
               </div>

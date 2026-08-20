@@ -84,7 +84,7 @@ export function GalleryList() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="py-24 text-center border border-white/5 rounded-3xl bg-card/20"
+              className="py-24 text-center border border-border rounded-3xl bg-card/20"
             >
               <div className="max-w-md mx-auto">
                 <h3 className="text-2xl font-bold mb-3">No images found</h3>

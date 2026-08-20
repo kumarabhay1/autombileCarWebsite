@@ -6,7 +6,7 @@ import { assets } from "@/data/assets";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Check, Clock, ChevronRight } from "lucide-react";
+import { Check, ChevronRight, Phone } from "lucide-react";
 import { CTASection } from "@/components/sections/CTASection";
 
 interface ServicePageProps {
@@ -46,12 +46,17 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   const imageMap: Record<string, string> = {
-    "exterior-detailing": assets.services.exterior,
-    "interior-detailing": assets.services.interior,
-    "full-detail": assets.services.fullDetail,
-    "ceramic-coating": assets.services.ceramicCoating,
+    "full-exterior-wash-detail": assets.services["full-exterior-wash-detail"],
+    "full-interior-detail": assets.services["full-interior-detail"],
+    "full-interior-exterior-detail": assets.services["full-interior-exterior-detail"],
+    "premium-detail": assets.services["premium-detail"],
+    "car-audio-installation": assets.services["car-audio-installation"],
+    "pet-hair-removal": assets.addons.petHair,
+    "deep-stain-removal": assets.addons.deepStain,
+    "engine-bay-cleaning": assets.addons.engineBay,
+    "odor-elimination-treatment": assets.addons.odor,
   };
-  const heroImage = imageMap[service.slug] || assets.services.fullDetail;
+  const heroImage = imageMap[service.slug] || assets.services["full-interior-exterior-detail"];
 
   return (
     <>
@@ -82,14 +87,33 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           </p>
           
           <div className="flex flex-wrap items-center gap-6">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card/80 backdrop-blur-md border border-white/10">
-              <span className="text-muted-foreground text-sm uppercase tracking-wider">Starting at</span>
-              <span className="text-2xl font-bold text-primary">${service.startingPrice}</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card/80 backdrop-blur-md border border-white/10">
-              <Clock className="w-5 h-5 text-muted-foreground" />
-              <span className="font-medium text-foreground">{service.duration}</span>
-            </div>
+            {service.callForPricing ? (
+              <div className="flex items-center gap-2 px-6 py-3 rounded-lg bg-card/80 backdrop-blur-md border border-primary/50 shadow-lg shadow-primary/20">
+                <span className="text-xl font-bold text-primary uppercase tracking-wider">Call for Pricing</span>
+              </div>
+            ) : service.startingPrice ? (
+              <div className="flex items-center gap-4 px-6 py-3 rounded-lg bg-card/80 backdrop-blur-md border border-border">
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">Pricing</span>
+                  <span className="text-xl font-bold text-foreground">{service.startingPrice}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4 px-6 py-3 rounded-lg bg-card/80 backdrop-blur-md border border-border">
+                <div className="flex flex-col items-center border-r border-border/50 pr-4">
+                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">Sedan</span>
+                  <span className="text-xl font-bold text-foreground">${service.prices?.sedan}</span>
+                </div>
+                <div className="flex flex-col items-center border-r border-border/50 pr-4">
+                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">SUV</span>
+                  <span className="text-xl font-bold text-foreground">${service.prices?.suv}</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mb-0.5">Truck</span>
+                  <span className="text-xl font-bold text-foreground">${service.prices?.truck}</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -120,14 +144,21 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <p className="text-muted-foreground text-sm mb-6">
                   Select this service when requesting your quote and we'll handle the rest.
                 </p>
-                <Button asChild size="lg" className="w-full mb-4">
+                <Button asChild size="lg" className="w-full mb-4 shadow-lg shadow-primary/20">
                   <Link href={siteConfig.links.quote}>Request a Quote</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="w-full">
-                  <a href={`https://wa.me/${siteConfig.contact.whatsapp}?text=I'm interested in the ${service.name} service.`} target="_blank" rel="noopener noreferrer">
-                    Ask on WhatsApp
-                  </a>
-                </Button>
+                <div className="grid grid-cols-2 gap-4">
+                  <Button asChild variant="outline" size="lg" className="w-full h-12">
+                    <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`}>
+                      <Phone className="w-4 h-4 mr-2" /> Call Now
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="w-full h-12 text-green-600 hover:text-green-700 hover:bg-green-500/10 dark:text-green-500 border-border">
+                    <a href={`https://wa.me/${siteConfig.contact.whatsapp}?text=I'm interested in the ${service.name} service.`} target="_blank" rel="noopener noreferrer">
+                      WhatsApp
+                    </a>
+                  </Button>
+                </div>
                 
                 <div className="mt-8 pt-6 border-t border-border">
                   <p className="text-sm font-semibold mb-4">Service Benefits:</p>

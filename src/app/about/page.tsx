@@ -19,10 +19,10 @@ export default function AboutPage() {
             src={assets.about.hero}
             alt="About Best In Class Detailing"
             fill
-            className="object-cover"
+            className="object-cover opacity-15 dark:opacity-40"
             priority
           />
-          <div className="absolute inset-0 bg-background/80 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-background/90 dark:bg-background/60" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10 text-center">
@@ -59,7 +59,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-24 bg-[#050507] border-y border-white/5">
+      <section className="py-24 bg-background border-y border-border">
         <div className="container mx-auto px-4 md:px-8 max-w-5xl">
           <h2 className="text-3xl font-bold text-center mb-16">Why We're Different</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

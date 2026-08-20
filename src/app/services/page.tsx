@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="pt-32 pb-16 bg-[#050507]">
+      <section className="pt-32 pb-16 bg-background">
         <div className="container mx-auto px-4 md:px-8 text-center max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
             Our <span className="text-primary">Services</span>

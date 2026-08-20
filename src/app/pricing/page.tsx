@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/data/site";
+import { assets } from "@/data/assets";
 import { pricingPackages, addOns } from "@/data/pricing";
 import { Button } from "@/components/ui/button";
-import { Check, Star } from "lucide-react";
+import { Check, Star, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <section className="pt-32 pb-16 bg-[#050507]">
+      <section className="pt-32 pb-16 bg-background">
         <div className="container mx-auto px-4 md:px-8 text-center max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
             Transparent <span className="text-primary">Pricing</span>
@@ -42,17 +44,31 @@ export default function PricingPage() {
                   </>
                 )}
                 
-                <h3 className="text-2xl font-bold mb-2">{pkg.name}</h3>
-                <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-sm text-muted-foreground">From</span>
-                  <span className="text-4xl font-extrabold">${pkg.price}</span>
-                </div>
+                <h3 className="text-2xl font-bold mb-4">{pkg.name}</h3>
                 
-                <div className="mb-8 pt-6 border-t border-white/5">
-                  <p className="text-sm font-medium mb-4 flex items-center justify-between">
-                    <span>What's Included:</span>
-                    <span className="text-muted-foreground font-normal">{pkg.duration}</span>
-                  </p>
+                {pkg.callForPricing ? (
+                  <div className="mb-6">
+                    <span className="text-3xl font-extrabold text-primary">CALL FOR PRICING</span>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-3 gap-2 mb-6">
+                    <div className="flex flex-col items-center p-2 rounded-lg bg-background border border-border">
+                      <span className="text-xs text-muted-foreground font-semibold mb-1">SEDAN</span>
+                      <span className="text-xl font-bold">${pkg.prices?.sedan}</span>
+                    </div>
+                    <div className="flex flex-col items-center p-2 rounded-lg bg-background border border-border">
+                      <span className="text-xs text-muted-foreground font-semibold mb-1">SUV</span>
+                      <span className="text-xl font-bold">${pkg.prices?.suv}</span>
+                    </div>
+                    <div className="flex flex-col items-center p-2 rounded-lg bg-background border border-border">
+                      <span className="text-xs text-muted-foreground font-semibold mb-1">TRUCK</span>
+                      <span className="text-xl font-bold">${pkg.prices?.truck}</span>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="mb-8 pt-6 border-t border-border">
+                  <p className="text-sm font-medium mb-4">What's Included:</p>
                   <ul className="space-y-3">
                     {pkg.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -65,7 +81,7 @@ export default function PricingPage() {
                 
                 <div className="mt-auto pt-6">
                   <Button asChild variant={pkg.recommended ? "default" : "outline"} className="w-full">
-                    <Link href={siteConfig.links.quote}>Request Quote</Link>
+                    <Link href={siteConfig.links.quote}>{pkg.callForPricing ? "Call for Pricing" : "Request Quote"}</Link>
                   </Button>
                 </div>
               </div>
@@ -73,20 +89,45 @@ export default function PricingPage() {
           </div>
 
           {/* Add-ons Section */}
-          <div className="mt-24 max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tight mb-12 text-center">Popular Add-ons</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {addOns.map((addon) => (
-                <div key={addon.id} className="flex items-center justify-between p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors">
-                  <div>
-                    <h4 className="text-lg font-semibold mb-1">{addon.name}</h4>
-                    <p className="text-sm text-muted-foreground">{addon.description}</p>
+          <div className="mt-24 max-w-5xl mx-auto">
+            <h2 className="text-4xl font-extrabold tracking-tight mb-12 text-center">Add-On Services</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {addOns.map((addon) => {
+                const addonImages: Record<string, string> = {
+                  "pet-hair": assets.addons.petHair,
+                  "deep-stain": assets.addons.deepStain,
+                  "engine-cleaning": assets.addons.engineBay,
+                  "odor-elimination": assets.addons.odor,
+                };
+                
+                return (
+                  <div key={addon.id} className="group relative flex flex-col bg-card rounded-2xl overflow-hidden border border-border transition-all hover:border-primary/50">
+                    <div className="relative h-64 w-full overflow-hidden">
+                      <Image
+                        src={addonImages[addon.id] || assets.addons.petHair}
+                        alt={addon.name}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                    </div>
+                    <div className="p-6 flex flex-col flex-grow relative z-10 -mt-10">
+                      <h3 className="text-2xl font-bold mb-2">{addon.name}</h3>
+                      <p className="text-muted-foreground mb-6 flex-grow">{addon.description}</p>
+                      <div className="flex items-center justify-between border-t border-border pt-4">
+                        <span className="font-semibold text-lg text-primary">
+                          {addon.priceLabel}
+                        </span>
+                        <Link href={`/services/${addon.slug}`} className="text-sm font-medium hover:text-primary transition-colors flex items-center">
+                          Details <ArrowRight className="w-4 h-4 ml-1" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-xl font-bold shrink-0 ml-4">+${addon.price}</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
-            <p className="text-center text-sm text-muted-foreground mt-8">
+            <p className="text-center text-sm text-muted-foreground mt-12 bg-background/50 p-4 rounded-xl border border-border inline-block mx-auto flex justify-center max-w-2xl">
               * Exact pricing may vary based on vehicle size and condition. A final quote will be provided before service begins.
             </p>
           </div>

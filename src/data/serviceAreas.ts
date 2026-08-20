@@ -1,16 +1,16 @@
 export const serviceAreas = [
   {
-    region: "Metropolitan Area",
-    cities: ["Downtown", "Northside", "Southside", "West End", "East District"],
+    region: "Primary Areas",
+    cities: ["Indianapolis", "Greenwood"],
   },
   {
-    region: "Suburbs",
-    cities: ["Oakridge", "Maplewood", "Pine Valley", "Cedar Grove"],
+    region: "Extended Service",
+    cities: ["Surrounding areas within 30 miles of Indianapolis"],
   },
 ];
 
 export const coverageDetails = {
   radius: "30-mile radius",
-  center: "Central City",
+  center: "Indianapolis, IN",
   note: "If your location is slightly outside our standard service area, please contact us. We often accommodate special requests depending on our schedule.",
 };

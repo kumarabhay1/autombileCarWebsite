@@ -14,7 +14,7 @@ export function FilterChips({ categories, activeCategory, onSelect }: FilterChip
         className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
           activeCategory === null
             ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-            : "bg-card border border-white/5 text-muted-foreground hover:text-foreground hover:border-white/20"
+            : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-border"
         }`}
       >
         All
@@ -27,7 +27,7 @@ export function FilterChips({ categories, activeCategory, onSelect }: FilterChip
           className={`whitespace-nowrap px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
             activeCategory === category
               ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
-              : "bg-card border border-white/5 text-muted-foreground hover:text-foreground hover:border-white/20"
+              : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-border"
           }`}
         >
           {category}

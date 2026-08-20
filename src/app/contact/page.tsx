@@ -38,7 +38,7 @@ export default function ContactPage() {
                 </a>
 
                 <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-4 group">
-                  <div className="w-12 h-12 rounded-full bg-[#050507] border border-border flex items-center justify-center shrink-0 group-hover:border-primary/50 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center shrink-0 group-hover:border-primary/50 transition-colors">
                     <Phone className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                   <div>
@@ -48,7 +48,7 @@ export default function ContactPage() {
                 </a>
 
                 <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-4 group">
-                  <div className="w-12 h-12 rounded-full bg-[#050507] border border-border flex items-center justify-center shrink-0 group-hover:border-primary/50 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center shrink-0 group-hover:border-primary/50 transition-colors">
                     <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   </div>
                   <div>
@@ -59,7 +59,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="p-8 rounded-2xl bg-[#050507] border border-white/5">
+            <div className="p-8 rounded-2xl bg-background border border-border">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-6 h-6 text-primary" />
                 <h3 className="text-xl font-bold">We Come To You</h3>
@@ -67,14 +67,14 @@ export default function ContactPage() {
               <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                 Our fully equipped mobile detailing units travel directly to your location. We carry our own spot-free water and power supply.
               </p>
-              <div className="text-sm font-semibold uppercase tracking-wider text-primary border-t border-white/10 pt-4">
+              <div className="text-sm font-semibold uppercase tracking-wider text-primary border-t border-border pt-4">
                 No Shop Visits Required
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-2">
-            <div className="p-6 sm:p-10 rounded-3xl bg-[#050507] border border-white/5 shadow-2xl relative overflow-hidden">
+            <div className="p-6 sm:p-10 rounded-3xl bg-background border border-border shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
               <div className="relative z-10">
                 <h2 className="text-2xl font-bold mb-8">Quote Request Form</h2>

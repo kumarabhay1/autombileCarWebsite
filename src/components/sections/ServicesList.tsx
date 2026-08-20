@@ -7,9 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SearchBar } from "@/components/ui/search-bar";
 import { FilterChips } from "@/components/ui/filter-chips";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { services } from "@/data/services";
 import { assets } from "@/data/assets";
+import { siteConfig } from "@/data/site";
 
 export function ServicesList() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,10 +81,15 @@ export function ServicesList() {
               filteredServices.map((service, index) => {
                 const isEven = index % 2 === 0;
                 const imageMap: Record<string, string> = {
-                  "exterior-detailing": assets.services.exterior,
-                  "interior-detailing": assets.services.interior,
-                  "full-detail": assets.services.fullDetail,
-                  "ceramic-coating": assets.services.ceramicCoating,
+                  "full-exterior-wash-detail": assets.services["full-exterior-wash-detail"],
+                  "full-interior-detail": assets.services["full-interior-detail"],
+                  "full-interior-exterior-detail": assets.services["full-interior-exterior-detail"],
+                  "premium-detail": assets.services["premium-detail"],
+                  "car-audio-installation": assets.services["car-audio-installation"],
+                  "pet-hair-removal": assets.addons.petHair,
+                  "deep-stain-removal": assets.addons.deepStain,
+                  "engine-bay-cleaning": assets.addons.engineBay,
+                  "odor-elimination-treatment": assets.addons.odor,
                 };
 
                 return (
@@ -98,14 +104,14 @@ export function ServicesList() {
                   >
                     <div className="w-full lg:w-1/2 relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl group">
                       <Image
-                        src={imageMap[service.slug] || assets.services.fullDetail}
+                        src={imageMap[service.slug] || assets.services["full-interior-exterior-detail"]}
                         alt={service.name}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-[#09090b]/10 mix-blend-multiply" />
                       <div className="absolute top-6 left-6">
-                        <span className="bg-background/80 backdrop-blur-md text-foreground px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-white/10 shadow-lg">
+                        <span className="bg-background/80 backdrop-blur-md text-foreground px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-border shadow-lg">
                           {service.category}
                         </span>
                       </div>
@@ -128,8 +134,21 @@ export function ServicesList() {
 
                       <div className="flex items-center gap-6 pt-8 border-t border-border">
                         <div>
-                          <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Starting From</p>
-                          <p className="text-3xl font-bold text-foreground">${service.startingPrice}</p>
+                          {service.callForPricing ? (
+                            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10 font-bold uppercase tracking-wider">
+                              <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`}>
+                                <Phone className="w-5 h-5 mr-2" />
+                                Call for Pricing
+                              </a>
+                            </Button>
+                          ) : (
+                            <>
+                              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Pricing</p>
+                              <p className="text-3xl font-bold text-foreground">
+                                {service.startingPrice ? service.startingPrice : `$${service.prices?.sedan}`}
+                              </p>
+                            </>
+                          )}
                         </div>
                         <Button asChild size="lg" className="ml-auto">
                           <Link href={`/services/${service.slug}`}>
@@ -146,7 +165,7 @@ export function ServicesList() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="py-24 text-center border border-white/5 rounded-3xl bg-card/20"
+                className="py-24 text-center border border-border rounded-3xl bg-card/20"
               >
                 <div className="max-w-md mx-auto">
                   <h3 className="text-2xl font-bold mb-3">No services found</h3>

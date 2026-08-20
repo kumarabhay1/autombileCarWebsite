@@ -29,10 +29,11 @@ export function ServicesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.slice(0, 3).map((service, index) => {
             const imageMap: Record<string, string> = {
-              "exterior-detailing": assets.services.exterior,
-              "interior-detailing": assets.services.interior,
-              "full-detail": assets.services.fullDetail,
-              "ceramic-coating": assets.services.ceramicCoating,
+              "full-exterior-wash-detail": assets.services["full-exterior-wash-detail"],
+              "full-interior-detail": assets.services["full-interior-detail"],
+              "full-interior-exterior-detail": assets.services["full-interior-exterior-detail"],
+              "premium-detail": assets.services["premium-detail"],
+              "car-audio-installation": assets.services["car-audio-installation"],
             };
             
             return (
@@ -46,7 +47,7 @@ export function ServicesSection() {
               >
                 <div className="relative h-64 w-full overflow-hidden">
                   <Image
-                    src={imageMap[service.slug] || assets.services.fullDetail}
+                    src={imageMap[service.slug] || assets.services["full-interior-exterior-detail"]}
                     alt={service.name}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -57,7 +58,9 @@ export function ServicesSection() {
                   <h3 className="text-2xl font-bold mb-2">{service.name}</h3>
                   <p className="text-muted-foreground mb-6 flex-grow">{service.shortDescription}</p>
                   <div className="flex items-center justify-between border-t border-border pt-4">
-                    <span className="font-semibold text-lg text-primary">From ${service.startingPrice}</span>
+                    <span className="font-semibold text-lg text-primary">
+                      {service.callForPricing ? "Call for Pricing" : `$${service.prices?.sedan}`}
+                    </span>
                     <Link href={`/services/${service.slug}`} className="text-sm font-medium hover:text-primary transition-colors flex items-center">
                       Details <ArrowRight className="w-4 h-4 ml-1" />
                     </Link>

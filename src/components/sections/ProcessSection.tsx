@@ -32,7 +32,7 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="py-24 bg-[#050507] border-y border-white/5 relative overflow-hidden">
+    <section className="py-24 bg-background border-y border-border relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
         <div className="text-center max-w-2xl mx-auto mb-20">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
@@ -45,7 +45,7 @@ export function ProcessSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 relative">
           {/* Connecting Line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-border -translate-y-1/2 z-0" />
+          <div className="hidden lg:block absolute top-[56px] left-[12%] right-[12%] h-[2px] border-t-2 border-dashed border-primary/30 -translate-y-1/2 z-0" />
 
           {steps.map((step, index) => {
             const Icon = step.icon;
@@ -56,7 +56,7 @@ export function ProcessSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative z-10 flex flex-col items-center text-center p-6 bg-[#050507] border border-border rounded-2xl lg:border-none lg:bg-transparent"
+                className="relative z-10 flex flex-col items-center text-center p-6 bg-background border border-border rounded-2xl lg:border-none lg:bg-transparent"
               >
                 <div className="w-16 h-16 rounded-full bg-card border-2 border-primary flex items-center justify-center mb-6 shadow-lg shadow-primary/20 relative">
                   <Icon className="w-8 h-8 text-primary" />

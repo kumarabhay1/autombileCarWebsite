@@ -1,28 +1,33 @@
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import { Phone, Mail, MessageCircle } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
+import { services } from "@/data/services";
 
 export function Footer() {
   return (
-    <footer className="bg-[#050507] border-t border-white/5 pt-20 pb-10">
+    <footer className="bg-background border-t border-border pt-20 pb-10">
       <div className="container mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           <div className="lg:col-span-1">
-            <Link href="/" className="text-xl font-bold tracking-tighter uppercase mb-6 inline-block">
-              {siteConfig.name}
+            <Link href="/" className="inline-block mb-6">
+              <Logo />
             </Link>
             <p className="text-muted-foreground text-sm max-w-xs">
               {siteConfig.description}
             </p>
           </div>
           
-          <div>
+          <div className="relative z-10">
             <h4 className="font-semibold mb-6">Services</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
-              <li><Link href="/services/full-detail" className="hover:text-primary transition-colors">Full Detail</Link></li>
-              <li><Link href="/services/exterior-detailing" className="hover:text-primary transition-colors">Exterior Detailing</Link></li>
-              <li><Link href="/services/interior-detailing" className="hover:text-primary transition-colors">Interior Detailing</Link></li>
-              <li><Link href="/services/ceramic-coating" className="hover:text-primary transition-colors">Ceramic Coating</Link></li>
+              {services.map(service => (
+                <li key={service.id}>
+                  <Link href={`/services/${service.slug}`} className="hover:text-primary transition-colors">
+                    {service.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -30,7 +35,6 @@ export function Footer() {
             <h4 className="font-semibold mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/gallery" className="hover:text-primary transition-colors">Gallery</Link></li>
               <li><Link href="/pricing" className="hover:text-primary transition-colors">Pricing</Link></li>
               <li><Link href="/service-areas" className="hover:text-primary transition-colors">Service Areas</Link></li>
             </ul>
@@ -57,11 +61,17 @@ export function Footer() {
                   WhatsApp Us
                 </a>
               </li>
+              <li>
+                <a href={siteConfig.socials.instagram} className="flex items-center gap-3 hover:text-primary transition-colors" target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                  Instagram
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs text-muted-foreground">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-border text-xs text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
           <div className="flex gap-4 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>

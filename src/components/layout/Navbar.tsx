@@ -4,18 +4,20 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/data/site";
+import { assets } from "@/data/assets";
 import { services } from "@/data/services";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, ArrowRight, MessageCircle } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, MessageCircle, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Logo } from "@/components/ui/logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services", hasDropdown: true },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/about", label: "About" },
-  { href: "/service-areas", label: "Areas" },
+  { href: "/about", label: "About Us" },
+  { href: "/service-areas", label: "Service Area" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export function Navbar() {
@@ -65,13 +67,19 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
         isScrolled 
-          ? "bg-[#09090b]/90 backdrop-blur-md border-b border-white/5 py-4 shadow-lg shadow-black/20" 
-          : "bg-gradient-to-b from-black/80 via-black/30 to-transparent py-6 border-b border-transparent"
+          ? "bg-background/95 backdrop-blur-md border-b border-border shadow-lg py-2" 
+          : "bg-background/20 backdrop-blur-sm border-b border-white/5 py-4"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold tracking-tighter text-foreground uppercase drop-shadow-md z-[100] relative">
-          {siteConfig.name}
+      <div className="container mx-auto px-4 md:px-8 flex items-center justify-between transition-all duration-500">
+        <Link href="/" className="z-[100] relative group">
+          <div className="relative flex items-center w-36 h-16 md:w-44 md:h-20 transition-transform duration-500 group-hover:scale-[1.02]">
+            <img 
+              src={assets.logo} 
+              alt="Detailing Bulls Logo" 
+              className="w-full h-full object-contain drop-shadow-md scale-[1.8] md:scale-[2.1] translate-y-1.5 md:translate-y-2.5"
+            />
+          </div>
         </Link>
 
         {/* Desktop Nav */}
@@ -110,38 +118,42 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] bg-[#050507] border border-white/10 rounded-2xl shadow-2xl p-6 grid grid-cols-2 gap-8 origin-top"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] bg-background border border-border rounded-2xl shadow-2xl origin-top"
                     >
                       {/* Arrow pointer */}
-                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#050507] border-l border-t border-white/10 rotate-45" />
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-background border-l border-t border-border rotate-45 z-10" />
                       
-                      {Object.entries(servicesByCategory).map(([category, items]) => (
-                        <div key={category}>
-                          <h4 className="text-xs font-bold text-primary uppercase tracking-wider mb-4 flex items-center gap-2">
-                            {category}
-                          </h4>
-                          <ul className="space-y-4">
-                            {items.map(item => (
-                              <li key={item.id}>
-                                <Link href={`/services/${item.slug}`} className="block group/item">
-                                  <div className="text-sm font-semibold text-foreground group-hover/item:text-primary transition-colors">
-                                    {item.name}
-                                  </div>
-                                  <div className="text-xs text-muted-foreground mt-1 line-clamp-1 group-hover/item:text-foreground/80 transition-colors">
-                                    {item.shortDescription}
-                                  </div>
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
+                      <div className="p-6 max-h-[75vh] overflow-y-auto custom-scrollbar relative z-20">
+                        <div className="grid grid-cols-2 gap-8">
+                          {Object.entries(servicesByCategory).map(([category, items]) => (
+                            <div key={category}>
+                              <h4 className="text-xs font-bold text-primary uppercase tracking-wider mb-4 flex items-center gap-2">
+                                {category}
+                              </h4>
+                              <ul className="space-y-4">
+                                {items.map(item => (
+                                  <li key={item.id}>
+                                    <Link href={`/services/${item.slug}`} className="block group/item">
+                                      <div className="text-sm font-semibold text-foreground group-hover/item:text-primary transition-colors">
+                                        {item.name}
+                                      </div>
+                                      <div className="text-xs text-muted-foreground mt-1 line-clamp-1 group-hover/item:text-foreground/80 transition-colors">
+                                        {item.shortDescription}
+                                      </div>
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                          
+                          <div className="col-span-2 pt-4 mt-2 border-t border-border flex justify-between items-center">
+                            <span className="text-xs text-muted-foreground">Premium mobile detailing at your doorstep.</span>
+                            <Link href="/services" className="text-sm font-semibold text-primary flex items-center hover:underline underline-offset-4">
+                              View All Services <ArrowRight className="w-4 h-4 ml-1" />
+                            </Link>
+                          </div>
                         </div>
-                      ))}
-                      
-                      <div className="col-span-2 pt-4 mt-2 border-t border-white/5 flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">Premium mobile detailing at your doorstep.</span>
-                        <Link href="/services" className="text-sm font-semibold text-primary flex items-center hover:underline underline-offset-4">
-                          View All Services <ArrowRight className="w-4 h-4 ml-1" />
-                        </Link>
                       </div>
                     </motion.div>
                   )}
@@ -150,25 +162,33 @@ export function Navbar() {
             </div>
           ))}
           
-          <div className="flex items-center gap-4 ml-4 pl-4 border-l border-white/10">
-            <a href={`https://wa.me/${siteConfig.contact.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-green-500 transition-colors flex items-center gap-2 text-sm font-medium" title="WhatsApp Us">
-              <MessageCircle className="w-5 h-5" />
-            </a>
+          <div className="flex items-center gap-3 ml-4 pl-4 border-l border-border">
+            <ThemeToggle />
+            <Button asChild variant="ghost" size="sm" className="hidden xl:flex items-center gap-2 hover:bg-primary/10 hover:text-primary">
+              <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`}>
+                <Phone className="w-4 h-4" /> <span className="font-semibold">Call Now</span>
+              </a>
+            </Button>
+            <Button asChild variant="ghost" size="sm" className="hidden lg:flex items-center gap-2 text-green-500 hover:bg-green-500/10 hover:text-green-600">
+              <a href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("Hi, I'd like to get a quote for your detailing services.")}`} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="w-4 h-4" /> <span className="font-semibold">WhatsApp</span>
+              </a>
+            </Button>
             <Button asChild variant="default" className="shadow-lg shadow-primary/20">
-              <Link href={siteConfig.links.quote}>Get a Quote</Link>
+              <Link href={siteConfig.links.quote}>Book Now</Link>
             </Button>
           </div>
         </nav>
 
         {/* Mobile Actions */}
         <div className="lg:hidden flex items-center gap-3 z-50 relative">
+          <ThemeToggle />
           <a 
-            href={`https://wa.me/${siteConfig.contact.whatsapp}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-foreground backdrop-blur-md hover:bg-white/10 transition-colors"
+            href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`} 
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-black/5 dark:bg-white/5 border border-border text-foreground backdrop-blur-md hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+            title="Call Us"
           >
-            <MessageCircle className="w-5 h-5" />
+            <Phone className="w-4 h-4" />
           </a>
           <button
             className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-primary text-primary-foreground font-semibold text-xs tracking-widest uppercase shadow-lg shadow-primary/20 transition-transform active:scale-95"
@@ -191,7 +211,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 bg-[#050507] flex flex-col pt-32"
+            className="fixed inset-0 z-40 bg-background flex flex-col pt-32"
           >
             {/* Premium Background Accents */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
@@ -220,18 +240,25 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.1, duration: 0.4 }}
-                className="mt-auto pt-8 border-t border-white/10 flex flex-col gap-4"
+                className="mt-auto pt-8 border-t border-border flex flex-col gap-4"
               >
-                <Button asChild size="lg" className="w-full text-lg h-14">
+                <Button asChild size="lg" className="w-full text-lg h-14 shadow-lg shadow-primary/20">
                   <Link href={siteConfig.links.quote}>
-                    Get a Free Quote
+                    Book Now
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="w-full text-lg h-14 bg-transparent border-white/20">
-                  <a href={`https://wa.me/${siteConfig.contact.whatsapp}`} className="flex items-center justify-center gap-2">
-                    <MessageCircle className="w-5 h-5 text-green-500" /> WhatsApp Us
-                  </a>
-                </Button>
+                <div className="grid grid-cols-2 gap-4">
+                  <Button asChild variant="outline" size="lg" className="w-full h-14 bg-transparent border-border">
+                    <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`} className="flex items-center justify-center gap-2">
+                      <Phone className="w-5 h-5" /> Call
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline" size="lg" className="w-full h-14 bg-transparent border-border text-green-600 hover:text-green-700 hover:bg-green-500/10 dark:text-green-500 dark:hover:text-green-400">
+                    <a href={`https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent("Hi, I'd like to get a quote for your detailing services.")}`} className="flex items-center justify-center gap-2">
+                      <MessageCircle className="w-5 h-5" /> WhatsApp
+                    </a>
+                  </Button>
+                </div>
               </motion.div>
             </nav>
           </motion.div>

@@ -1,16 +1,16 @@
-
 export const siteConfig = {
-  name: "Best In Class Detailing",
-  description: "Premium Auto Detailing. We Come To You. Professional mobile detailing delivered directly to your location.",
+  name: "Detailing Bulls",
+  description: "Premium mobile auto detailing delivered directly to your home or office.",
   url: "https://bestinclassdetailing.com",
   contact: {
-    email: "info@bestinclassdetailing.com",
-    phone: "+1 (555) 123-4567",
-    whatsapp: "+15551234567",
+    owner: "Harmanbir Singh",
+    email: "detailingbullsllc@gmail.com",
+    phone: "+1 (317) 764-8886",
+    whatsapp: "+13177648886",
     whatsappMessage: "Hi, I'm interested in getting a detailing quote for my vehicle.",
   },
   socials: {
-    instagram: "https://instagram.com/bestinclassdetailing",
+    instagram: "https://www.instagram.com/detailingbulls_?utm_source=qr",
     facebook: "https://facebook.com/bestinclassdetailing",
   },
   links: {
