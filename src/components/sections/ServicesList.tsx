@@ -99,7 +99,7 @@ export function ServicesList() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    viewport={{ once: false, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.15 }}
                     transition={{ duration: 0.5 }}
                     key={service.id} 
                     className="w-full"

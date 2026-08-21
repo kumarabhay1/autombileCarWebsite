@@ -21,6 +21,21 @@ export function TiltCard({
   const [isDisabled, setIsDisabled] = useState(false);
   const rafId = useRef<number | null>(null);
 
+  // Cached DOM references to prevent querySelectorAll on every mouse frame
+  const imgsRef = useRef<HTMLElement[]>([]);
+  const contentsRef = useRef<HTMLElement[]>([]);
+  const glareRef = useRef<HTMLDivElement | null>(null);
+  const isCachedRef = useRef(false);
+
+  const updateCachedRefs = useCallback(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    imgsRef.current = Array.from(card.querySelectorAll<HTMLElement>("[data-parallax-img]"));
+    contentsRef.current = Array.from(card.querySelectorAll<HTMLElement>("[data-parallax-content]"));
+    glareRef.current = card.querySelector<HTMLDivElement>("[data-tilt-glare]");
+    isCachedRef.current = true;
+  }, []);
+
   useEffect(() => {
     const reducedMotionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -42,6 +57,10 @@ export function TiltCard({
       if (isDisabled) return;
       const card = cardRef.current;
       if (!card) return;
+
+      if (!isCachedRef.current) {
+        updateCachedRefs();
+      }
 
       const rect = card.getBoundingClientRect();
       const x = clientX - rect.left;
@@ -65,24 +84,22 @@ export function TiltCard({
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
         card.style.transition = "transform 0.1s ease-out";
 
-        // 3D Parallax shift for Image layers
-        const parallaxImgs = card.querySelectorAll<HTMLElement>("[data-parallax-img]");
-        parallaxImgs.forEach((img) => {
+        // 3D Parallax shift for Image layers using cached refs
+        imgsRef.current.forEach((img) => {
           const moveX = percentX * -12;
           const moveY = percentY * -12;
           img.style.transform = `scale(1.12) translate3d(${moveX}px, ${moveY}px, 0px)`;
           img.style.transition = "transform 0.1s ease-out";
         });
 
-        // 3D Parallax float for Content layers
-        const parallaxContents = card.querySelectorAll<HTMLElement>("[data-parallax-content]");
-        parallaxContents.forEach((content) => {
+        // 3D Parallax float for Content layers using cached refs
+        contentsRef.current.forEach((content) => {
           content.style.transform = `translateZ(25px)`;
           content.style.transition = "transform 0.1s ease-out";
         });
 
-        // Move glare reflection
-        const glare = card.querySelector<HTMLDivElement>("[data-tilt-glare]");
+        // Move glare reflection using cached ref
+        const glare = glareRef.current;
         if (glare) {
           const glareX = (x / rect.width) * 100;
           const glareY = (y / rect.height) * 100;
@@ -91,7 +108,7 @@ export function TiltCard({
         }
       });
     },
-    [tiltMaxX, tiltMaxY, isDisabled]
+    [tiltMaxX, tiltMaxY, isDisabled, updateCachedRefs]
   );
 
   const handleMouseMove = useCallback(
@@ -121,22 +138,21 @@ export function TiltCard({
       card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
       card.style.transition = "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
 
-      const parallaxImgs = card.querySelectorAll<HTMLElement>("[data-parallax-img]");
-      parallaxImgs.forEach((img) => {
+      imgsRef.current.forEach((img) => {
         img.style.transform = "scale(1) translate3d(0px, 0px, 0px)";
         img.style.transition = "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
       });
 
-      const parallaxContents = card.querySelectorAll<HTMLElement>("[data-parallax-content]");
-      parallaxContents.forEach((content) => {
+      contentsRef.current.forEach((content) => {
         content.style.transform = "translateZ(0px)";
         content.style.transition = "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
       });
 
-      const glare = card.querySelector<HTMLDivElement>("[data-tilt-glare]");
+      const glare = glareRef.current;
       if (glare) {
         glare.style.opacity = "0";
       }
+      isCachedRef.current = false;
     });
   }, [isDisabled]);
 
@@ -144,8 +160,10 @@ export function TiltCard({
     <div
       ref={cardRef}
       className={`relative transform-gpu will-change-transform ${className}`}
+      onMouseEnter={updateCachedRefs}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleReset}
+      onTouchStart={updateCachedRefs}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleReset}
       style={{ transformStyle: "preserve-3d" }}

@@ -21,7 +21,7 @@ export function ServiceAreaSection({ id = "service-area" }: { id?: string }) {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col space-y-8"
           >
@@ -79,7 +79,7 @@ export function ServiceAreaSection({ id = "service-area" }: { id?: string }) {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.8 }}
             className="h-[300px] sm:h-[400px] lg:h-[600px] rounded-3xl overflow-hidden border border-border shadow-2xl relative bg-card"
           >

@@ -18,7 +18,7 @@ export function MobileHighlightSection() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.8 }}
             className="relative h-[300px] sm:h-[400px] lg:h-[550px] xl:h-[700px] rounded-3xl overflow-hidden shadow-2xl"
           >
@@ -42,7 +42,7 @@ export function MobileHighlightSection() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-center"
           >
