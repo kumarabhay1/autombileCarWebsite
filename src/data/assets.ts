@@ -1,7 +1,7 @@
 export const assets = {
   logo: "/images/logo_bulls_new.png",
   hero: {
-    video: "https://videos.pexels.com/video-files/5192077/5192077-uhd_2732_1440_25fps.mp4",
+    video: "https://stream.mux.com/T6oQJQ02cQ6N01TR6iHwZkKFkbepS34dkkIc9iukgy400g.m3u8",
     image: "/images/hero_poster.png",
   },
   beforeAfter: {

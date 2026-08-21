@@ -4,21 +4,24 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/data/site";
 import { Phone, MessageCircle, MapPin, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SectionDivider } from "@/components/ui/section-divider";
+import { SectionAtmosphere } from "@/components/ui/section-atmosphere";
 
 export function ServiceAreaSection({ id = "service-area" }: { id?: string }) {
   return (
-    <section id={id} className="py-24 bg-background overflow-hidden relative scroll-mt-20">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+    <section id={id} className="py-12 md:py-16 lg:py-20 xl:py-24 bg-background overflow-hidden relative scroll-mt-20">
+      <SectionAtmosphere />
+      <div className="absolute top-0 right-0 w-[min(450px,80vw)] h-[450px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[min(450px,80vw)] h-[450px] bg-primary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
           
           {/* Left Column - Info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col space-y-8"
           >
@@ -28,12 +31,12 @@ export function ServiceAreaSection({ id = "service-area" }: { id?: string }) {
                 Mobile Operation
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 md:mb-6 leading-tight">
                 Proudly Serving <br/>
                 <span className="text-primary">Your Location.</span>
               </h2>
               
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
+              <p className="text-base lg:text-lg text-muted-foreground leading-relaxed max-w-lg mb-6 md:mb-8">
                 We are a completely mobile detailing business. We bring our own water, power, and premium equipment directly to your home, office, or apartment complex.
               </p>
             </div>
@@ -76,9 +79,9 @@ export function ServiceAreaSection({ id = "service-area" }: { id?: string }) {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.8 }}
-            className="h-[500px] lg:h-[600px] rounded-3xl overflow-hidden border border-border shadow-2xl relative bg-card"
+            className="h-[300px] sm:h-[400px] lg:h-[600px] rounded-3xl overflow-hidden border border-border shadow-2xl relative bg-card"
           >
             {/* Dark mode filter wrapper */}
             <div className="w-full h-full dark:invert dark:hue-rotate-180 dark:contrast-[0.9] dark:opacity-90 transition-all duration-500">
@@ -104,6 +107,7 @@ export function ServiceAreaSection({ id = "service-area" }: { id?: string }) {
           
         </div>
       </div>
+      <SectionDivider variant="subtle" className="absolute bottom-0 left-0 right-0" />
     </section>
   );
 }

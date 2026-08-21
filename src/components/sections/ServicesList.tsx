@@ -11,6 +11,7 @@ import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
 import { services } from "@/data/services";
 import { assets } from "@/data/assets";
 import { siteConfig } from "@/data/site";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ServicesList() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -75,7 +76,7 @@ export function ServicesList() {
         </div>
 
         {/* Results */}
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-10 md:gap-14 lg:gap-20 xl:gap-24">
           <AnimatePresence mode="popLayout">
             {filteredServices.length > 0 ? (
               filteredServices.map((service, index) => {
@@ -95,68 +96,75 @@ export function ServicesList() {
                 return (
                   <motion.div 
                     layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4 }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    transition={{ duration: 0.5 }}
                     key={service.id} 
-                    className={`flex flex-col gap-12 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center`}
+                    className="w-full"
                   >
-                    <div className="w-full lg:w-1/2 relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl group">
-                      <Image
-                        src={imageMap[service.slug] || assets.services["full-interior-exterior-detail"]}
-                        alt={service.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-[#09090b]/10 mix-blend-multiply" />
-                      <div className="absolute top-6 left-6">
-                        <span className="bg-background/80 backdrop-blur-md text-foreground px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-border shadow-lg">
-                          {service.category}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="w-full lg:w-1/2 flex flex-col justify-center">
-                      <h2 className="text-3xl md:text-4xl font-bold mb-4">{service.name}</h2>
-                      <p className="text-lg text-muted-foreground mb-8">
-                        {service.description}
-                      </p>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mb-10">
-                        {service.benefits.map((benefit, i) => (
-                          <div key={i} className="flex items-start gap-3">
-                            <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                            <span className="text-sm font-medium">{benefit}</span>
+                    <TiltCard className="w-full">
+                      <div className={`flex flex-col gap-6 lg:gap-8 xl:gap-12 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center p-4 sm:p-6 lg:p-8 xl:p-10 bg-card border border-border/80 dark:border-border rounded-3xl transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/15 shadow-xl`}>
+                        <div className="w-full lg:w-1/2 relative h-[250px] sm:h-[300px] lg:h-[380px] xl:h-[480px] rounded-2xl overflow-hidden shadow-2xl group bg-muted shrink-0">
+                          <Image
+                            data-parallax-img
+                            src={imageMap[service.slug] || assets.services["full-interior-exterior-detail"]}
+                            alt={service.name}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            className="object-cover transition-transform duration-500 will-change-transform"
+                          />
+                          <div className="absolute inset-0 bg-[#09090b]/10 mix-blend-multiply pointer-events-none" />
+                          <div className="absolute top-6 left-6 z-20">
+                            <span className="bg-background/85 backdrop-blur-md text-foreground px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-border shadow-lg">
+                              {service.category}
+                            </span>
                           </div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-6 pt-8 border-t border-border">
-                        <div>
-                          {service.callForPricing ? (
-                            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10 font-bold uppercase tracking-wider">
-                              <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`}>
-                                <Phone className="w-5 h-5 mr-2" />
-                                Call for Pricing
-                              </a>
-                            </Button>
-                          ) : (
-                            <>
-                              <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Pricing</p>
-                              <p className="text-3xl font-bold text-foreground">
-                                {service.startingPrice ? service.startingPrice : `$${service.prices?.sedan}`}
-                              </p>
-                            </>
-                          )}
                         </div>
-                        <Button asChild size="lg" className="ml-auto">
-                          <Link href={`/services/${service.slug}`}>
-                            View Details <ArrowRight className="w-4 h-4 ml-2" />
-                          </Link>
-                        </Button>
+                        
+                        <div data-parallax-content className="w-full lg:w-1/2 flex flex-col justify-center relative z-20">
+                          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">{service.name}</h2>
+                          <p className="text-base lg:text-lg text-muted-foreground mb-5 md:mb-6 lg:mb-8">
+                            {service.description}
+                          </p>
+                          
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-3 lg:gap-y-4 mb-6 md:mb-8 lg:mb-10">
+                            {service.benefits.map((benefit, i) => (
+                              <div key={i} className="flex items-start gap-3">
+                                <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                                <span className="text-sm font-medium">{benefit}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pt-6 md:pt-8 border-t border-border">
+                            <div>
+                              {service.callForPricing ? (
+                                <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/10 font-bold uppercase tracking-wider">
+                                  <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`}>
+                                    <Phone className="w-5 h-5 mr-2" />
+                                    Call for Pricing
+                                  </a>
+                                </Button>
+                              ) : (
+                                <>
+                                  <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Pricing</p>
+                                  <p className="text-3xl font-bold text-foreground">
+                                    {service.startingPrice ? service.startingPrice : `$${service.prices?.sedan}`}
+                                  </p>
+                                </>
+                              )}
+                            </div>
+                            <Button asChild size="lg" className="ml-auto shadow-md">
+                              <Link href={`/services/${service.slug}`}>
+                                View Details <ArrowRight className="w-4 h-4 ml-2" />
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    </TiltCard>
                   </motion.div>
                 );
               })

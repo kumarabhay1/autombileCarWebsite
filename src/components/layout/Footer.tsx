@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
-import { Phone, Mail, MessageCircle } from "lucide-react";
+import { Phone, Mail, MessageCircle, Clock } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { services } from "@/data/services";
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border pt-20 pb-10">
+    <footer className="bg-background border-t border-border pt-12 md:pt-16 lg:pt-20 pb-6 md:pb-8 lg:pb-10">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-8 mb-10 md:mb-12 lg:mb-16">
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
               <Logo />
@@ -35,7 +35,6 @@ export function Footer() {
             <h4 className="font-semibold mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-muted-foreground">
               <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link href="/pricing" className="hover:text-primary transition-colors">Pricing</Link></li>
               <li><Link href="/service-areas" className="hover:text-primary transition-colors">Service Areas</Link></li>
             </ul>
           </div>
@@ -66,6 +65,15 @@ export function Footer() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
                   Instagram
                 </a>
+              </li>
+              <li className="pt-3 border-t border-border/40">
+                <div className="flex items-start gap-3 text-xs">
+                  <Clock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground">Mon – Sat: 9:00 AM – 6:00 PM</p>
+                    <p className="text-muted-foreground/80">Sunday: Closed</p>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>

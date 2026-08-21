@@ -8,6 +8,11 @@ export const siteConfig = {
     phone: "+1 (317) 764-8886",
     whatsapp: "+13177648886",
     whatsappMessage: "Hi, I'm interested in getting a detailing quote for my vehicle.",
+    hours: {
+      days: "Monday - Saturday",
+      time: "9:00 AM - 6:00 PM",
+      sunday: "Closed",
+    },
   },
   socials: {
     instagram: "https://www.instagram.com/detailingbulls_?utm_source=qr",

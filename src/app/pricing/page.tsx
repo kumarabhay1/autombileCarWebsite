@@ -16,20 +16,20 @@ export const metadata: Metadata = {
 export default function PricingPage() {
   return (
     <>
-      <section className="pt-32 pb-16 bg-background">
+      <section className="pt-28 md:pt-36 lg:pt-40 pb-8 md:pb-12 lg:pb-16 bg-background">
         <div className="container mx-auto px-4 md:px-8 text-center max-w-3xl">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 md:mb-6">
             Transparent <span className="text-primary">Pricing</span>
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-base lg:text-lg text-muted-foreground">
             Premium service at straightforward prices. No hidden fees. We bring the studio to you.
           </p>
         </div>
       </section>
 
-      <section className="py-16 bg-background">
+      <section className="py-8 md:py-12 lg:py-16 bg-background">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 md:gap-6 lg:gap-8">
             {pricingPackages.map((pkg) => (
               <div 
                 key={pkg.id} 
@@ -90,8 +90,8 @@ export default function PricingPage() {
 
           {/* Add-ons Section */}
           <div className="mt-24 max-w-5xl mx-auto">
-            <h2 className="text-4xl font-extrabold tracking-tight mb-12 text-center">Add-On Services</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-8 md:mb-10 lg:mb-12 text-center">Add-On Services</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
               {addOns.map((addon) => {
                 const addonImages: Record<string, string> = {
                   "pet-hair": assets.addons.petHair,
@@ -101,20 +101,22 @@ export default function PricingPage() {
                 };
                 
                 return (
-                  <div key={addon.id} className="group relative flex flex-col bg-card rounded-2xl overflow-hidden border border-border transition-all hover:border-primary/50">
-                    <div className="relative h-64 w-full overflow-hidden">
+                  <div key={addon.id} className="group relative flex flex-col bg-card rounded-2xl overflow-hidden border border-border/80 dark:border-border transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 shadow-sm">
+                    <div className="relative h-48 sm:h-56 md:h-64 w-full overflow-hidden bg-muted">
                       <Image
                         src={addonImages[addon.id] || assets.addons.petHair}
                         alt={addon.name}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                      {/* Subtle localized bottom gradient - only bottom ~15% to preserve full vehicle image details */}
+                      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-card via-card/30 to-transparent pointer-events-none" />
                     </div>
-                    <div className="p-6 flex flex-col flex-grow relative z-10 -mt-10">
+                    <div className="p-6 flex flex-col flex-grow relative z-10">
                       <h3 className="text-2xl font-bold mb-2">{addon.name}</h3>
                       <p className="text-muted-foreground mb-6 flex-grow">{addon.description}</p>
-                      <div className="flex items-center justify-between border-t border-border pt-4">
+                      <div className="flex items-center justify-between border-t border-border pt-4 mt-auto">
                         <span className="font-semibold text-lg text-primary">
                           {addon.priceLabel}
                         </span>
