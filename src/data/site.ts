@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Detailing Bulls",
   description: "Premium mobile auto detailing delivered directly to your home or office.",
-  url: "https://bestinclassdetailing.com",
+  url: "https://detailingbulls.us",
   contact: {
     owner: "Harmanbir Singh",
     email: "detailingbullsllc@gmail.com",
