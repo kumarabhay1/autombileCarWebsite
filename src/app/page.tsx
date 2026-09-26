@@ -5,6 +5,7 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { MobileHighlightSection } from "@/components/sections/MobileHighlightSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { ServiceAreaSection } from "@/components/sections/ServiceAreaSection";
+import { FAQSection } from "@/components/sections/FAQSection";
 import { CTASection } from "@/components/sections/CTASection";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <MobileHighlightSection />
       <TestimonialsSection />
       <ServiceAreaSection id="service-area" />
+      <FAQSection />
       <CTASection />
     </>
   );
