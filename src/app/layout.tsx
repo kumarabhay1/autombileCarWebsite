@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "Detailing Bulls | Premium Mobile Auto Detailing",
   description: "Professional mobile auto detailing delivered directly to your location. Premium products, professional results, and a detailing experience built around your convenience.",
   keywords: ["mobile detailing", "auto detailing", "car detailing", "ceramic coating", "paint correction", "we come to you"],
+  verification: {
+    google: "google4fbf5f0fc437ffcb",
+  },
 };
 
 export default function RootLayout({
