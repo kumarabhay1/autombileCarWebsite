@@ -6,8 +6,18 @@ import { CTASection } from "@/components/sections/CTASection";
 import { ServicesList } from "@/components/sections/ServicesList";
 
 export const metadata: Metadata = {
-  title: `Services | ${siteConfig.name}`,
-  description: "Explore our premium mobile detailing services, from full interior and exterior details to ceramic coating and paint correction.",
+  title: "Mobile Detailing Services | Indianapolis & Greenwood IN",
+  description: "Explore our premium mobile detailing services in Indianapolis & Greenwood, IN. Interior detailing, exterior wash, ceramic coating, paint correction, and headlight restoration brought to your door.",
+  keywords: [
+    "mobile car detailing services Indianapolis",
+    "interior car detailing Greenwood",
+    "paint correction Indianapolis",
+    "ceramic coating Indianapolis",
+    "mobile wash and wax"
+  ],
+  alternates: {
+    canonical: "https://detailingbulls.us/services",
+  },
 };
 
 export default function ServicesPage() {

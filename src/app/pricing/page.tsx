@@ -9,8 +9,18 @@ import Image from "next/image";
 import { CTASection } from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
-  title: `Pricing | ${siteConfig.name}`,
-  description: "Transparent pricing for premium mobile detailing services.",
+  title: "Pricing & Detailing Packages | Indianapolis & Greenwood IN",
+  description: "Transparent pricing for mobile auto detailing in Indianapolis and Greenwood, IN. Sedan, SUV, and truck detailing packages with zero hidden fees.",
+  keywords: [
+    "car detailing prices Indianapolis",
+    "mobile auto detailing packages Greenwood",
+    "sedan detailing price Indianapolis",
+    "SUV detailing cost",
+    "ceramic coating cost Indianapolis"
+  ],
+  alternates: {
+    canonical: "https://detailingbulls.us/pricing",
+  },
 };
 
 export default function PricingPage() {

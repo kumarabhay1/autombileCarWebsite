@@ -7,8 +7,16 @@ import { Phone, Mail, MessageCircle, MapPin, ShieldCheck, Sparkles, Clock } from
 import { SectionAtmosphere } from "@/components/ui/section-atmosphere";
 
 export const metadata: Metadata = {
-  title: `Request a Quote | ${siteConfig.name}`,
-  description: "Request a free quote for mobile auto detailing services.",
+  title: "Get a Free Mobile Detailing Quote | Indianapolis & Greenwood IN",
+  description: "Request a free quote for mobile auto detailing services in Indianapolis and Greenwood, IN. Call +1 (317) 764-8886 or message us on WhatsApp.",
+  keywords: [
+    "mobile detailing quote Indianapolis",
+    "book car detailing Greenwood",
+    "auto detailer contact Indianapolis"
+  ],
+  alternates: {
+    canonical: "https://detailingbulls.us/contact",
+  },
 };
 
 export default function ContactPage() {

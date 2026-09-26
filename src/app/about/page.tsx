@@ -6,8 +6,16 @@ import { CTASection } from "@/components/sections/CTASection";
 import { ShieldCheck, Truck, Star, Award } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: `About Us | ${siteConfig.name}`,
-  description: "Learn about our mission to provide the ultimate mobile auto detailing experience.",
+  title: "About Us | Detailing Bulls Mobile Detailing Indianapolis",
+  description: "Learn about Detailing Bulls, your premier mobile auto detailing team in Indianapolis & Greenwood, IN. Fully equipped with water and power to service your vehicle anywhere.",
+  keywords: [
+    "about Detailing Bulls",
+    "mobile detailers Indianapolis",
+    "professional auto detailing Indiana"
+  ],
+  alternates: {
+    canonical: "https://detailingbulls.us/about",
+  },
 };
 
 export default function AboutPage() {
